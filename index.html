@@ -5,6 +5,9 @@
   <title>Valentine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- SEXY FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
     * { box-sizing: border-box; }
 
@@ -15,46 +18,55 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Arial, sans-serif;
-      background: #ffd6e4;
+      background: #ffd1e3;
+      font-family: 'Poppins', sans-serif;
     }
 
-    /* HEART BACKGROUND */
+    /* MOVING HEART BACKGROUND */
     .heart-bg {
       position: fixed;
-      width: 140vmax;
-      height: 140vmax;
+      width: 160vmax;
+      height: 160vmax;
       background: radial-gradient(circle at center,
-        #ffe4ee 0%,
-        #ffb6cf 30%,
-        #ff8fb8 55%,
-        #ff6fa3 75%,
-        #ff4d8d 100%
+        #ffe6f0 0%,
+        #ffb3d1 30%,
+        #ff85b8 55%,
+        #ff5fa2 75%,
+        #ff3d8a 100%
       );
       clip-path: path(
         "M 50 15
          C 35 -5, 0 10, 50 60
          C 100 10, 65 -5, 50 15 Z"
       );
-      animation: pulse 7s ease-in-out infinite;
-      filter: blur(2px);
+      animation: heartMove 10s ease-in-out infinite;
+      filter: blur(3px);
       z-index: -1;
     }
 
-    @keyframes pulse {
-      0%   { transform: scale(0.95); opacity: 0.85; }
-      50%  { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.85; }
+    @keyframes heartMove {
+      0% {
+        transform: translate(-5%, -5%) scale(0.95);
+        opacity: 0.85;
+      }
+      50% {
+        transform: translate(5%, 5%) scale(1.08);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-5%, -5%) scale(0.95);
+        opacity: 0.85;
+      }
     }
 
-    /* BIGGER CARD */
+    /* CARD */
     .card {
-      background: rgba(255,255,255,0.94);
-      padding: 50px 45px;
-      border-radius: 26px;
+      background: rgba(255,255,255,0.96);
+      padding: 60px 55px;
+      border-radius: 30px;
       text-align: center;
-      width: 420px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      width: 460px;
+      box-shadow: 0 35px 70px rgba(0,0,0,0.3);
       animation: fadeIn 1.4s ease;
       position: relative;
       z-index: 1;
@@ -66,55 +78,55 @@
     }
 
     h1 {
-      margin: 0 0 30px;
+      margin: 0 0 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
       color: #c2185b;
-      font-size: 28px;
+      letter-spacing: 0.5px;
     }
 
-    /* BUTTON AREA (SEPARATED ZONES) */
     .buttons {
       position: relative;
-      height: 120px;
-      margin-top: 10px;
+      height: 150px;
     }
 
     button {
-      padding: 14px 32px;
-      font-size: 17px;
-      border-radius: 30px;
+      padding: 16px 38px;
+      font-size: 18px;
+      border-radius: 35px;
       border: none;
       cursor: pointer;
+      position: absolute;
+      font-family: 'Poppins', sans-serif;
     }
 
     #yes {
-      background: #e91e63;
+      background: linear-gradient(135deg, #ff4d88, #e91e63);
       color: white;
-      position: absolute;
       left: 40px;
-      top: 40px;
+      top: 60px;
     }
 
     #no {
-      background: #ddd;
-      position: absolute;
+      background: #eee;
       right: 40px;
-      top: 40px;
+      top: 60px;
     }
 
     #message {
       display: none;
-      margin-top: 30px;
-      font-size: 18px;
+      margin-top: 40px;
+      font-size: 19px;
       color: #333;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    /* FLOATING SMOOTH HEARTS */
+    /* FLOATING HEARTS */
     .heart {
       position: fixed;
       width: 14px;
       height: 14px;
-      background: rgba(233, 30, 99, 0.35);
+      background: rgba(233, 30, 99, 0.4);
       transform: rotate(45deg);
       pointer-events: none;
       animation: float 8s linear forwards;
@@ -127,7 +139,7 @@
       position: absolute;
       width: 14px;
       height: 14px;
-      background: rgba(233, 30, 99, 0.35);
+      background: rgba(233, 30, 99, 0.4);
       border-radius: 50%;
     }
 
@@ -136,16 +148,16 @@
 
     @keyframes float {
       from {
-        transform: rotate(45deg) translate(0, 0) scale(0.8);
-        opacity: 0.7;
+        transform: rotate(45deg) translate(0,0) scale(0.7);
+        opacity: 0.8;
       }
       to {
         transform: rotate(45deg)
           translate(
-            calc(-120px + 240px * var(--x)),
-            calc(-120px + 240px * var(--y))
+            calc(-180px + 360px * var(--x)),
+            calc(-180px + 360px * var(--y))
           )
-          scale(1.4);
+          scale(1.6);
         opacity: 0;
       }
     }
@@ -166,11 +178,10 @@
 
     <div id="message">
       I knew it.<br>
-      This moment means everything to me.
+      You were always my answer.
     </div>
   </div>
 
-  <!-- ADD YOUR FILE: blue.mp3 -->
   <audio id="music" loop>
     <source src="blue.mp3" type="audio/mpeg">
   </audio>
@@ -181,38 +192,47 @@
     const message = document.getElementById("message");
     const music = document.getElementById("music");
 
-    /* NO BUTTON NEVER OVERLAPS YES */
-    noBtn.addEventListener("mouseenter", () => {
-      const x = Math.random() * 80 + 260; // right side only
-      const y = Math.random() * 60 + 20;
-      noBtn.style.right = "auto";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+    /* NO BUTTON ESCAPES FAST */
+    document.addEventListener("mousemove", (e) => {
+      const rect = noBtn.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 130) {
+        const x = Math.random() * (window.innerWidth - rect.width);
+        const y = Math.random() * (window.innerHeight - rect.height);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+      }
     });
 
+    /* YES → HEART EXPLOSION */
     yesBtn.addEventListener("click", () => {
       message.style.display = "block";
       yesBtn.style.display = "none";
       noBtn.style.display = "none";
       music.play();
+
+      for (let i = 0; i < 140; i++) {
+        setTimeout(createHeart, i * 8);
+      }
     });
 
-    /* FLOATING HEARTS */
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.top = Math.random() * 100 + "vh";
-      heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
       heart.style.setProperty("--x", Math.random());
       heart.style.setProperty("--y", Math.random());
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
+      setTimeout(() => heart.remove(), 9000);
     }
 
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 400);
   </script>
 
 </body>
 </html>
-
