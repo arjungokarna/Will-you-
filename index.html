@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    /* RESET */
     * {
       box-sizing: border-box;
     }
@@ -22,25 +21,32 @@
       background: #ffd6e4;
     }
 
-    /* HEART BACKGROUND */
+    /* HEART SHAPED BACKGROUND */
     .heart-bg {
       position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(255,230,240,0.95) 0 18%, transparent 19%),
-        radial-gradient(circle at 50% 45%, rgba(255,200,220,0.9) 0 30%, transparent 31%),
-        radial-gradient(circle at 50% 45%, rgba(255,170,205,0.85) 0 42%, transparent 43%),
-        radial-gradient(circle at 50% 45%, rgba(255,140,190,0.8) 0 54%, transparent 55%),
-        radial-gradient(circle at 50% 45%, rgba(255,115,175,0.75) 0 66%, transparent 67%);
+      width: 140vmax;
+      height: 140vmax;
+      background: radial-gradient(circle at center,
+        #ffe4ee 0%,
+        #ffb6cf 30%,
+        #ff8fb8 55%,
+        #ff6fa3 75%,
+        #ff4d8d 100%
+      );
+      clip-path: path(
+        "M 50 15
+         C 35 -5, 0 10, 50 60
+         C 100 10, 65 -5, 50 15 Z"
+      );
       animation: pulse 7s ease-in-out infinite;
+      filter: blur(2px);
       z-index: -1;
-      filter: blur(1px);
     }
 
     @keyframes pulse {
-      0%   { transform: scale(1);   opacity: 0.9; }
-      50%  { transform: scale(1.08); opacity: 1; }
-      100% { transform: scale(1);   opacity: 0.9; }
+      0%   { transform: scale(0.95); opacity: 0.85; }
+      50%  { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.85; }
     }
 
     /* CARD */
@@ -51,7 +57,7 @@
       text-align: center;
       width: 320px;
       box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-      animation: fadeIn 1.5s ease;
+      animation: fadeIn 1.4s ease;
       position: relative;
       z-index: 1;
     }
@@ -62,15 +68,9 @@
     }
 
     h1 {
-      margin: 0 0 10px;
+      margin: 0 0 25px;
       color: #c2185b;
       font-size: 24px;
-    }
-
-    #countdown {
-      margin-bottom: 25px;
-      color: #555;
-      font-size: 14px;
     }
 
     .buttons {
@@ -84,7 +84,6 @@
       border-radius: 25px;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s ease;
     }
 
     #yes {
@@ -107,7 +106,7 @@
       line-height: 1.4;
     }
 
-    /* FLOATING CSS HEARTS */
+    /* FLOATING SMOOTH HEARTS */
     .heart {
       position: fixed;
       width: 14px;
@@ -163,7 +162,6 @@
 
   <div class="card">
     <h1>Will you be my Valentine?</h1>
-    <p id="countdown"></p>
 
     <div class="buttons">
       <button id="yes">Yes</button>
@@ -181,25 +179,6 @@
   </audio>
 
   <script>
-    /* COUNTDOWN */
-    const targetDate = new Date("February 14, 2026 00:00:00").getTime();
-    const countdown = document.getElementById("countdown");
-
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-
-      if (diff > 0) {
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const m = Math.floor((diff / (1000 * 60)) % 60);
-        countdown.innerText = `Valentine in ${d}d ${h}h ${m}m`;
-      } else {
-        countdown.innerText = "It is Valentine’s Day";
-      }
-    }, 1000);
-
-    /* BUTTON LOGIC */
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const message = document.getElementById("message");
@@ -219,7 +198,6 @@
       music.play();
     });
 
-    /* FLOATING HEARTS */
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -232,7 +210,7 @@
       setTimeout(() => heart.remove(), 10000);
     }
 
-    setInterval(createHeart, 250);
+    setInterval(createHeart, 300);
   </script>
 
 </body>
