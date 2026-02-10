@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Valentine</title>
+  <title>Formybby</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEXY FONTS -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
@@ -22,7 +22,7 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* MOVING HEART BACKGROUND */
+    /* Moving heart background */
     .heart-bg {
       position: fixed;
       width: 160vmax;
@@ -50,7 +50,7 @@
       100% { transform: translate(-6%, -6%) scale(0.95); opacity: 0.85; }
     }
 
-    /* CARD */
+    /* Card */
     .card {
       background: rgba(255,255,255,0.96);
       padding: 60px 55px;
@@ -73,7 +73,6 @@
       font-family: 'Playfair Display', serif;
       font-size: 34px;
       color: #c2185b;
-      letter-spacing: 0.5px;
     }
 
     .buttons {
@@ -89,6 +88,7 @@
       cursor: pointer;
       position: absolute;
       font-family: 'Poppins', sans-serif;
+      transition: transform 0.25s ease; /* smooth movement */
     }
 
     #yes {
@@ -112,7 +112,7 @@
       line-height: 1.6;
     }
 
-    /* SMOOTH HEART PARTICLES */
+    /* Floating hearts */
     .heart {
       position: fixed;
       width: 14px;
@@ -162,18 +162,20 @@
   <div class="card">
     <h1>Will you be my Valentine?</h1>
 
-    <div class="buttons">
+    <div class="buttons" id="buttonArea">
       <button id="yes">Yes</button>
       <button id="no">No</button>
     </div>
 
     <div id="message">
-      I knew it.<br>
-      You were always my answer.
+      HEHEHEHEHE
+      LUVV YOU THE MOST MUDDDU
+      UMUAHHH
+      <333.<br>
+      
     </div>
   </div>
 
-  <!-- ADD FILE: blue.mp3 -->
   <audio id="music" loop>
     <source src="blue.mp3" type="audio/mpeg">
   </audio>
@@ -181,37 +183,30 @@
   <script>
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
+    const area = document.getElementById("buttonArea");
     const message = document.getElementById("message");
     const music = document.getElementById("music");
 
-    /* IMPOSSIBLE NO BUTTON */
-    let panic = false;
-
-    document.addEventListener("mousemove", (e) => {
+    /* PLAYFUL NO BUTTON (STAYS VISIBLE) */
+    area.addEventListener("mousemove", (e) => {
       const rect = noBtn.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+      const ax = area.getBoundingClientRect();
 
-      if (dist < 160 && !panic) {
-        panic = true;
-        startPanic();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      const dist = Math.hypot(dx, dy);
+
+      if (dist < 100) {
+        const maxX = ax.width - rect.width;
+        const maxY = ax.height - rect.height;
+
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
       }
     });
-
-    function startPanic() {
-      const interval = setInterval(() => {
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-      }, 70); // VERY FAST
-
-      setTimeout(() => {
-        clearInterval(interval);
-        panic = false;
-      }, 900);
-    }
 
     /* YES CLICK */
     yesBtn.addEventListener("click", () => {
@@ -220,8 +215,7 @@
       noBtn.style.display = "none";
       music.play();
 
-      // HEART EXPLOSION
-      for (let i = 0; i < 160; i++) {
+      for (let i = 0; i < 140; i++) {
         setTimeout(createHeart, i * 8);
       }
     });
