@@ -45,18 +45,9 @@
     }
 
     @keyframes heartMove {
-      0% {
-        transform: translate(-5%, -5%) scale(0.95);
-        opacity: 0.85;
-      }
-      50% {
-        transform: translate(5%, 5%) scale(1.08);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(-5%, -5%) scale(0.95);
-        opacity: 0.85;
-      }
+      0%   { transform: translate(-6%, -6%) scale(0.95); opacity: 0.85; }
+      50%  { transform: translate(6%, 6%) scale(1.08); opacity: 1; }
+      100% { transform: translate(-6%, -6%) scale(0.95); opacity: 0.85; }
     }
 
     /* CARD */
@@ -87,7 +78,7 @@
 
     .buttons {
       position: relative;
-      height: 150px;
+      height: 160px;
     }
 
     button {
@@ -104,13 +95,13 @@
       background: linear-gradient(135deg, #ff4d88, #e91e63);
       color: white;
       left: 40px;
-      top: 60px;
+      top: 70px;
     }
 
     #no {
       background: #eee;
-      right: 40px;
-      top: 60px;
+      left: 260px;
+      top: 70px;
     }
 
     #message {
@@ -121,7 +112,7 @@
       line-height: 1.6;
     }
 
-    /* FLOATING HEARTS */
+    /* SMOOTH HEART PARTICLES */
     .heart {
       position: fixed;
       width: 14px;
@@ -179,60 +170,3 @@
     <div id="message">
       I knew it.<br>
       You were always my answer.
-    </div>
-  </div>
-
-  <audio id="music" loop>
-    <source src="blue.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    const message = document.getElementById("message");
-    const music = document.getElementById("music");
-
-    /* NO BUTTON ESCAPES FAST */
-    document.addEventListener("mousemove", (e) => {
-      const rect = noBtn.getBoundingClientRect();
-      const dx = e.clientX - (rect.left + rect.width / 2);
-      const dy = e.clientY - (rect.top + rect.height / 2);
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < 130) {
-        const x = Math.random() * (window.innerWidth - rect.width);
-        const y = Math.random() * (window.innerHeight - rect.height);
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-      }
-    });
-
-    /* YES → HEART EXPLOSION */
-    yesBtn.addEventListener("click", () => {
-      message.style.display = "block";
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-      music.play();
-
-      for (let i = 0; i < 140; i++) {
-        setTimeout(createHeart, i * 8);
-      }
-    });
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.top = Math.random() * 100 + "vh";
-      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
-      heart.style.setProperty("--x", Math.random());
-      heart.style.setProperty("--y", Math.random());
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 9000);
-    }
-
-    setInterval(createHeart, 400);
-  </script>
-
-</body>
-</html>
