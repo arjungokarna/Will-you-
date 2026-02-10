@@ -88,7 +88,7 @@
       cursor: pointer;
       position: absolute;
       font-family: 'Poppins', sans-serif;
-      transition: transform 0.25s ease; /* smooth movement */
+      transition: transform 0.25s ease;
     }
 
     #yes {
@@ -110,6 +110,16 @@
       font-size: 19px;
       color: #333;
       line-height: 1.6;
+    }
+
+    /* Love photo */
+    .love-photo {
+      width: 100%;
+      max-width: 220px;
+      border-radius: 18px;
+      margin: 0 auto 18px;
+      display: block;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
     }
 
     /* Floating hearts */
@@ -151,15 +161,6 @@
           scale(1.6);
         opacity: 0;
       }
-      .love-photo {
-  width: 100%;
-  max-width: 220px;
-  border-radius: 18px;
-  margin: 0 auto 18px;
-  display: block;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-}
-
     }
   </style>
 </head>
@@ -177,16 +178,14 @@
     </div>
 
     <div id="message">
-  <img src="photo.jpg" alt="Us" class="love-photo">
+      <img src="photo.jpg" alt="Us" class="love-photo">
 
-  <p>
-    HEHEHEHE
-    LUVVVV YOUU THE MOST MUDDU<333
-      UMUAHH<br>
-    
-  </p>
-</div>
-
+      <p>
+        HEHEHEHE<br>
+        LUVVVV YOUU THE MOST MUDDU &lt;333<br>
+        UMUAHH
+      </p>
+    </div>
   </div>
 
   <audio id="music" loop>
@@ -200,11 +199,9 @@
     const message = document.getElementById("message");
     const music = document.getElementById("music");
 
-    /* PLAYFUL NO BUTTON (STAYS VISIBLE) */
     area.addEventListener("mousemove", (e) => {
       const rect = noBtn.getBoundingClientRect();
       const ax = area.getBoundingClientRect();
-
       const dx = e.clientX - (rect.left + rect.width / 2);
       const dy = e.clientY - (rect.top + rect.height / 2);
       const dist = Math.hypot(dx, dy);
@@ -212,16 +209,11 @@
       if (dist < 100) {
         const maxX = ax.width - rect.width;
         const maxY = ax.height - rect.height;
-
-        const newX = Math.random() * maxX;
-        const newY = Math.random() * maxY;
-
-        noBtn.style.left = newX + "px";
-        noBtn.style.top = newY + "px";
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
       }
     });
 
-    /* YES CLICK */
     yesBtn.addEventListener("click", () => {
       message.style.display = "block";
       yesBtn.style.display = "none";
